@@ -5,6 +5,21 @@ import { TYPE_LABEL } from '../data/project';
 import type { LineumNode, TestStatus } from '../types';
 import { Icon, TypeIcon } from './icons';
 
+/** An identifier that may wrap after underscores and dots instead of mid-word. */
+export function Breakable({ text }: { text: string }) {
+  const parts = text.split(/(?<=[_.])/);
+  return (
+    <>
+      {parts.map((part, i) => (
+        <span key={i}>
+          {part}
+          {i < parts.length - 1 && <wbr />}
+        </span>
+      ))}
+    </>
+  );
+}
+
 export function Chip({ children, tone, title }: { children: ReactNode; tone?: string; title?: string }) {
   return (
     <span className={`chip${tone ? ` chip-${tone}` : ''}`} title={title}>

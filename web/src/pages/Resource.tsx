@@ -6,6 +6,7 @@ import { readHash } from '../data/router';
 import { Explorer } from '../lineage/Explorer';
 import type { Column, LineumNode } from '../types';
 import {
+  Breakable,
   Chip,
   CopyButton,
   Empty,
@@ -79,7 +80,9 @@ export function ResourcePage({ node }: { node: LineumNode }) {
           <span className="resource-icon" style={{ color: `var(--ln-layer-${node.layer}, var(--ln-color-muted))` }}>
             <TypeIcon type={node.type} size={26} />
           </span>
-          <h1 className="resource-title">{node.label && node.type === 'exposure' ? node.label : project.displayName(node)}</h1>
+          <h1 className="resource-title">
+            <Breakable text={node.label && node.type === 'exposure' ? node.label : project.displayName(node)} />
+          </h1>
           <button type="button" className="icon-button" title="Actions" aria-label="Actions" onClick={(event) => api.openMenu(event, nodeMenu(api, node))}>
             <Icon.menu size={16} />
           </button>

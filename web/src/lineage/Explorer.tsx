@@ -91,7 +91,8 @@ function ExplorerInner({ init, embedded = false, syncHash = false }: ExplorerPro
   const [manual, setManual] = useState<Map<number, { x: number; y: number }>>(new Map());
   const [allColumns, setAllColumns] = useState<Set<number>>(new Set());
   const [showHelp, setShowHelp] = useState(false);
-  const [inspectorOpen, setInspectorOpen] = useState(!embedded);
+  // On narrow screens the inspector overlays the canvas, so it starts closed there.
+  const [inspectorOpen, setInspectorOpen] = useState(() => !embedded && window.innerWidth > 900);
   const wrapper = useRef<HTMLDivElement>(null);
   const modes = useMemo(() => colorModes(project), [project]);
   const mode = modes.find((m) => m.id === state.colorBy) ?? modes[0];

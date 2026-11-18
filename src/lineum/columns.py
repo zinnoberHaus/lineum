@@ -215,6 +215,10 @@ def run_job(job: Job) -> Outcome:
 
 
 def _analyse(job: Job) -> Outcome:
+    import logging
+
+    # sqlglot logs a warning for every scope it cannot traverse; Lineum reports per model instead.
+    logging.getLogger("sqlglot").setLevel(logging.ERROR)
     import sqlglot
     from sqlglot import exp
     from sqlglot.errors import SqlglotError
