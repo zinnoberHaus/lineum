@@ -227,6 +227,7 @@ class MarkdownTest(unittest.TestCase):
 
     def test_plain_summary(self) -> None:
         self.assertEqual(markdown.plain("**Bold** and `code` [link](https://x)"), "Bold and code link")
+        self.assertEqual(markdown.plain("Joins to `dim_customers`, _not_ __raw__."), "Joins to dim_customers, not raw.")
         self.assertTrue(markdown.plain("word " * 200, limit=40).endswith("…"))
 
 

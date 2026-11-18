@@ -1224,7 +1224,7 @@ pre {
   line-height: var(--ln-leading-tight);
   font-weight: 650;
   letter-spacing: -0.015em;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .relation {

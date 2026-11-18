@@ -51,7 +51,9 @@ def plain(text: str | None, limit: int = 300) -> str:
     value = re.sub(r"```.*?```", " ", text, flags=re.S)
     value = re.sub(r"!\[[^\]]*\]\([^)]*\)", " ", value)
     value = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", value)
-    value = re.sub(r"[`*_>#|~]", "", value)
+    value = re.sub(r"[`*>#|~]", "", value)
+    # Underscores are emphasis only at word edges; inside words they are identifiers (dim_customers).
+    value = re.sub(r"(?<![A-Za-z0-9])_+|_+(?![A-Za-z0-9])", "", value)
     value = re.sub(r"\s+", " ", value).strip()
     if len(value) > limit:
         cut = value[: limit - 1].rsplit(" ", 1)[0]
