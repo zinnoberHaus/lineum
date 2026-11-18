@@ -2,6 +2,7 @@ import { useApp } from '../app/context';
 import { Explorer } from '../lineage/Explorer';
 import { Chip, formatCount, formatSeconds, NodeLink, StatusDot } from '../ui/bits';
 import { Icon } from '../ui/icons';
+import { RunTimeline } from './RunTimeline';
 
 export function OverviewPage() {
   const api = useApp();
@@ -145,6 +146,7 @@ export function OverviewPage() {
           )}
         </section>
       </div>
+      <RunTimeline />
     </div>
   );
 }

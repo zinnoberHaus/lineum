@@ -36,7 +36,7 @@ While you work on models, `lineum dev` builds, serves and rebuilds whenever dbt 
 
 ## 4. Look around
 
-- **Overview**: the whole project in layer bands, the most depended-on models, exposures, health and the last run's critical path.
+- **Overview**: the whole project in layer bands, the most depended-on models, exposures, health, and the last run as a timeline with its critical path.
 - **Model pages**: columns with their sources, tests, SQL, upstream and downstream, and an embedded lineage view.
 - **Lineage**: the explorer. Right-click anything; press `?` for shortcuts.
 - **Health**: coverage and findings.
