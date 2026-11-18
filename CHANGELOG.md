@@ -8,7 +8,7 @@ First working version. Install from GitHub; see the README.
 - Lineage explorer: focus and depth controls, `+N` expanders for hidden parents and children, flow and layer-band layouts, 14 colour-by modes with a legend that selects or hides, trace upstream/downstream/both with an animated tracer, paths between two nodes, undo and redo, URL state, ⌘K to add nodes, keyboard shortcuts, inspector with details, columns, impact and SQL.
 - Right-click menus on nodes, columns, the canvas, selections, the sidebar tree, search results and links.
 - Column-level lineage from compiled SQL with sqlglot, labelled direct, renamed, derived or aggregated, through CTEs, subqueries, unions and ephemeral models; parallel parsing for large projects.
-- Graph analytics: upstream and downstream reach, depth, fan-in and fan-out, exposures reached, impact score, critical path of the last run.
+- Graph analytics: upstream and downstream reach, depth, fan-in and fan-out, exposures reached, impact score, critical path of the last run, and a run timeline (Gantt chart of the last dbt run by thread, critical path outlined) on the overview.
 - Health score over seven coverage dimensions with findings; `lineum check --fail-under`.
 - SQL page with DuckDB-WASM over `nodes`, `edges`, `columns`, `column_edges` and `tests`, plus sample data exported with `--data` from DuckDB warehouses; charts and CSV export.
 - `lineum serve`, `lineum dev`, `lineum impact`, `lineum lineage` and `lineum export` (JSON, Mermaid, DOT).

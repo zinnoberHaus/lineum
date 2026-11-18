@@ -1470,6 +1470,70 @@ pre {
   font-weight: 700;
 }
 
+.timeline {
+  margin-top: 40px;
+}
+
+.timeline-chart {
+  position: relative;
+  padding: 26px 0 0;
+  border-top: 1px solid var(--ln-color-rule);
+}
+
+.timeline-axis {
+  position: absolute;
+  inset: 4px 0 auto 0;
+  height: 16px;
+  color: var(--ln-color-muted);
+  font-size: var(--ln-size-2xs);
+}
+
+.timeline-axis span {
+  position: absolute;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.timeline-axis span:first-child {
+  transform: none;
+}
+
+.timeline-axis span:last-child {
+  transform: translateX(-100%);
+}
+
+.timeline-lanes {
+  position: relative;
+  height: calc(var(--lanes) * 22px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: repeating-linear-gradient(to bottom, transparent 0 21px, var(--ln-color-rule) 21px 22px);
+}
+
+.timeline-bar {
+  position: absolute;
+  height: 16px;
+  margin-top: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.timeline-bar:hover {
+  opacity: 1;
+  outline: 2px solid var(--ln-color-ink);
+}
+
+.timeline-bar.is-critical {
+  opacity: 1;
+  box-shadow: 0 0 0 2px var(--ln-color-accent);
+}
+
+.timeline-bar.is-failed {
+  background: var(--ln-color-fail) !important;
+}
+
 /* ---------------------------------------------------------------- health ---- */
 
 .health {
