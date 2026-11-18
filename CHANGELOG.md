@@ -12,5 +12,6 @@ First working version. Install from GitHub; see the README.
 - Health score over seven coverage dimensions with findings; `lineum check --fail-under`.
 - SQL page with DuckDB-WASM over `nodes`, `edges`, `columns`, `column_edges` and `tests`, plus sample data exported with `--data` from DuckDB warehouses; charts and CSV export.
 - `lineum serve`, `lineum dev`, `lineum impact`, `lineum lineage` and `lineum export` (JSON, Mermaid, DOT).
+- Large projects: a synthetic 2,700-model, 300-source project builds in about 1.5 s; the explorer opens on the most depended-on model and shows every node in under a second with the band layout. A stale catalog no longer drops a model's column lineage, and SQL parsing falls back to one process when worker processes cannot start.
 - `lineum.yml` configuration: title, base URL, noindex, SQL, excluded packages, layer rules, sample data, example queries, head HTML.
 - Example project `examples/larkspur` (DuckDB, synthetic data) with committed artifacts; live demo at https://lineum-demo.vercel.app.

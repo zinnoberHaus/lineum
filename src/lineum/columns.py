@@ -20,6 +20,7 @@ from __future__ import annotations
 import os
 from collections.abc import Iterator
 from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures.process import BrokenProcessPool
 from dataclasses import dataclass
 from typing import Any
 
@@ -92,11 +93,16 @@ def compute(project: Project, workers: int | None = None) -> dict[str, int]:
 
     jobs = [_job(project, node, dialect, outputs) for node in regular]
     worker_count = _workers(workers, len(jobs))
+    parallel: list[Outcome] | None = None
     if worker_count > 1:
-        with ProcessPoolExecutor(max_workers=worker_count) as pool:
-            results.extend(pool.map(run_job, jobs, chunksize=8))
-    else:
-        results.extend(run_job(job) for job in jobs)
+        try:
+            with ProcessPoolExecutor(max_workers=worker_count) as pool:
+                parallel = list(pool.map(run_job, jobs, chunksize=8))
+        except (BrokenProcessPool, OSError) as error:
+            # Worker processes can fail to start (frozen apps, restricted sandboxes, scripts read
+            # from stdin). The work is the same in one process, only slower.
+            project.warnings.append(f"Parsed SQL in one process because worker processes failed ({type(error).__name__}).")
+    results.extend(parallel if parallel is not None else [run_job(job) for job in jobs])
 
     edges: list[ColumnEdge] = []
     with_lineage = 0
@@ -239,7 +245,13 @@ def _analyse(job: Job) -> Outcome:
     try:
         roots = _lineage_all(lineage, query, schema, job.dialect)
     except SqlglotError as error:
-        return Outcome(job.node_id, f"could not resolve columns: {str(error).splitlines()[0][:160]}", [], [])
+        # A stale or partial catalog (a column added since `dbt docs generate`) makes qualification
+        # fail on one unknown column. Without the schema, qualified columns still resolve; only
+        # `select *` expansion is lost, and nothing is guessed.
+        try:
+            roots = _lineage_all(lineage, query, {}, job.dialect)
+        except SqlglotError:
+            return Outcome(job.node_id, f"could not resolve columns: {str(error).splitlines()[0][:160]}", [], [])
 
     lookup = _relation_lookup(job.relations)
     edges: list[tuple[str, str, str, str]] = []
