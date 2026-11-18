@@ -132,7 +132,12 @@ export function createReducer(project: Project) {
         return commit(state, { visible, columns: new Set([...state.columns].filter((i) => visible.has(i))) });
       }
       case 'showAll':
-        return commit(state, { visible: new Set(project.nodes.map((_, i) => i)), focus: null });
+        // dagre takes seconds on thousands of nodes; the band layout is near-instant.
+        return commit(state, {
+          visible: new Set(project.nodes.map((_, i) => i)),
+          focus: null,
+          layout: project.nodes.length > 800 ? 'layers' : state.layout,
+        });
       case 'columns': {
         const columns = new Set(state.columns);
         const show = action.show ?? !action.nodes.every((i) => columns.has(i));

@@ -168,6 +168,22 @@ class ColumnLineageTest(unittest.TestCase):
             self.assertTrue(project.nodes[f"model.{PKG}.all_amounts"].column_lineage.startswith("could not"))
             self.assertGreater(stats["edges"], 5)
 
+    def test_stale_catalog_does_not_drop_the_model(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            fixtures.write_project(Path(tmp))
+            project = build_project(artifacts.load(tmp))
+            # The join references a column the catalog does not know about yet.
+            project.nodes[f"model.{PKG}.all_amounts"].compiled_sql = (
+                'select o.order_id as id, p.amount from "db"."analytics"."stg_orders" as o '
+                'join "db"."analytics"."stg_payments" as p on o.order_id = p.new_column'
+            )
+            columns.compute(project, workers=1)
+            edges = {(e.source.split(".")[-1], e.source_column, e.target_column)
+                     for e in project.column_edges if e.target == f"model.{PKG}.all_amounts"}
+            self.assertIn(("stg_payments", "amount", "amount"), edges)
+            self.assertIn(("stg_orders", "order_id", "id"), edges)
+            self.assertEqual(project.nodes[f"model.{PKG}.all_amounts"].column_lineage, "ok")
+
     def test_parallel_matches_serial(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             fixtures.write_project(Path(tmp))
