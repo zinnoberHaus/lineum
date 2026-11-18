@@ -1,15 +1,24 @@
 # Contributing
 
-Lineum welcomes issues, documentation, research and code. The project is in planning: read the [roadmap](docs/roadmap.md) before proposing a change, and open an issue describing the user problem, the dbt artifacts involved and the observable behaviour you expect.
+Lineum welcomes issues, documentation, research and code. It is a 0.1 preview: read the [roadmap](docs/roadmap.md) and the [architecture decision](docs/decisions/0001-architecture.md) before proposing a change, and open an issue describing the user problem, the dbt artifacts involved and the observable behaviour you expect.
 
 For a bug, include a reproducible example, expected and actual results, and the Lineum, dbt and Python versions. Remove secrets, credentials and private data (including warehouse names and SQL you may not share). Report vulnerabilities through [SECURITY.md](SECURITY.md).
 
 Work in a branch and submit a focused pull request. Explain what changed, why, and the checks you ran:
 
 ```sh
-python -m pip install -e .
-python -m unittest discover -s tests
+python -m pip install -e ".[dev,data]"
+python -m unittest discover -s tests -t .
+ruff check src tests
+
+# Browser app (Node 22, pnpm 10)
+cd web
+pnpm install
+pnpm test
+pnpm build    # updates src/lineum/static/; commit it with your change
 ```
+
+To regenerate the example's artifacts, install `dbt-duckdb` and run `examples/larkspur/build_artifacts.sh`.
 
 Update affected documentation. Cite primary sources for research and keep evidence separate from proposals.
 

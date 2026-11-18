@@ -1,0 +1,46 @@
+models:
+- name: stg_payments__charges
+  description: Charge attempts with amounts and processing fees in dollars.
+  columns:
+  - name: charge_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''charge_id'') }}'
+  - name: order_id
+    description: Order the charge pays for.
+  - name: charged_at
+    description: '{{ doc(''charged_at'') }}'
+  - name: amount
+    description: '{{ doc(''amount'') }}'
+  - name: currency
+    description: '{{ doc(''currency'') }}'
+  - name: is_successful
+    description: True when the processor captured the charge.
+  - name: payment_method
+    data_tests:
+    - accepted_values:
+        arguments:
+          values:
+          - card
+          - paypal
+          - apple_pay
+          - gift_card
+    description: '{{ doc(''payment_method'') }}'
+  - name: processing_fee
+    description: '{{ doc(''processing_fee'') }}'
+- name: stg_payments__refunds
+  columns:
+  - name: payment_refund_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''payment_refund_id'') }}'
+  - name: charge_id
+    description: '{{ doc(''charge_id'') }}'
+  - name: refunded_at
+    description: '{{ doc(''refunded_at'') }}'
+  - name: amount
+    description: '{{ doc(''amount'') }}'
+  - name: status
+    description: '{{ doc(''status'') }}'

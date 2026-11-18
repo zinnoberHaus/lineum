@@ -1,0 +1,59 @@
+exposures:
+  - name: executive_dashboard
+    label: Executive KPI dashboard
+    type: dashboard
+    maturity: high
+    url: https://bi.larkspur.example/dashboards/executive
+    description: Monthly revenue, margin, orders, customers, Trail Club MRR and CSAT for the leadership meeting.
+    depends_on:
+      - ref('mart_executive_kpis')
+      - ref('fct_daily_revenue')
+    owner:
+      name: Finance analytics
+      email: finance-analytics@larkspur.example
+  - name: marketing_roi_dashboard
+    label: Marketing ROI dashboard
+    type: dashboard
+    maturity: medium
+    url: https://bi.larkspur.example/dashboards/marketing-roi
+    description: Spend, attributed revenue and return on ad spend by channel group.
+    depends_on:
+      - ref('mart_channel_roi')
+      - ref('fct_marketing_spend')
+      - ref('fct_email_engagement')
+    owner:
+      name: Growth analytics
+      email: growth@larkspur.example
+  - name: customer_ltv_model
+    label: Customer LTV model
+    type: ml
+    maturity: medium
+    description: Gradient-boosted model that predicts 12-month customer value from cohort and channel features.
+    depends_on:
+      - ref('mart_customer_ltv')
+    owner:
+      name: Growth analytics
+      email: growth@larkspur.example
+  - name: replenishment_notebook
+    label: Replenishment planning notebook
+    type: notebook
+    maturity: low
+    url: https://notebooks.larkspur.example/replenishment
+    description: Weekly notebook the merchandising team uses to plan purchase orders.
+    depends_on:
+      - ref('fct_inventory_health')
+      - ref('dim_products')
+    owner:
+      name: Operations analytics
+      email: ops-analytics@larkspur.example
+  - name: support_ops_app
+    label: Support operations app
+    type: application
+    maturity: high
+    description: Internal app showing ticket backlog, SLA attainment and CSAT by category.
+    depends_on:
+      - ref('fct_support_tickets')
+      - ref('fct_shipments')
+    owner:
+      name: Operations analytics
+      email: ops-analytics@larkspur.example

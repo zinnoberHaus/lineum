@@ -1,0 +1,18 @@
+sources:
+  - name: payments
+    description: Payment processor exports (charges and refunds).
+    database: larkspur
+    schema: raw_payments
+    loader: ingest-service
+    loaded_at_field: created_at
+    config:
+      freshness:
+        warn_after: { count: 30, period: day }
+    tables:
+      - name: charges
+        description: Every charge attempt, including failures.
+        columns:
+          - name: id
+            data_tests: [unique, not_null]
+      - name: refunds
+        description: Refunds processed against a charge.

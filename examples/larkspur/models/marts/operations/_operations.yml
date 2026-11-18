@@ -1,0 +1,74 @@
+models:
+- name: fct_inventory_health
+  description: Monthly stock position, stockout rate and months of cover per category.
+  columns:
+  - name: snapshot_date
+    description: '{{ doc(''snapshot_date'') }}'
+  - name: category
+    description: '{{ doc(''category'') }}'
+  - name: units_available
+    description: '{{ doc(''units_available'') }}'
+  - name: stock_value
+    description: '{{ doc(''stock_value'') }}'
+  - name: stocked_out_variants
+    description: '{{ doc(''stocked_out_variants'') }}'
+  - name: stockout_rate
+    description: '{{ doc(''stockout_rate'') }}'
+  - name: units_sold
+    description: '{{ doc(''units_sold'') }}'
+  - name: months_of_cover
+    description: Units available divided by units sold that month.
+- name: fct_shipments
+  description: Shipments with transit time and carrier cost.
+  columns:
+  - name: shipment_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''shipment_id'') }}'
+  - name: order_id
+    description: '{{ doc(''order_id'') }}'
+  - name: warehouse_name
+    description: '{{ doc(''warehouse_name'') }}'
+  - name: warehouse_region
+    description: '{{ doc(''warehouse_region'') }}'
+  - name: carrier
+    description: '{{ doc(''carrier'') }}'
+  - name: shipped_at
+    description: '{{ doc(''shipped_at'') }}'
+  - name: delivered_at
+    description: '{{ doc(''delivered_at'') }}'
+  - name: days_in_transit
+    description: '{{ doc(''days_in_transit'') }}'
+  - name: shipping_cost
+    description: '{{ doc(''shipping_cost'') }}'
+- name: fct_support_tickets
+  description: Tickets with resolution time, SLA flag and CSAT.
+  columns:
+  - name: ticket_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''ticket_id'') }}'
+  - name: customer_id
+    description: '{{ doc(''customer_id'') }}'
+  - name: order_id
+    description: '{{ doc(''order_id'') }}'
+  - name: opened_at
+    description: '{{ doc(''opened_at'') }}'
+  - name: solved_at
+    description: '{{ doc(''solved_at'') }}'
+  - name: contact_channel
+    description: '{{ doc(''contact_channel'') }}'
+  - name: category
+    description: '{{ doc(''category'') }}'
+  - name: priority
+    description: '{{ doc(''priority'') }}'
+  - name: resolution_hours
+    description: '{{ doc(''resolution_hours'') }}'
+  - name: solved_within_sla
+    description: True when the ticket was solved within 24 hours.
+  - name: csat_score
+    description: '{{ doc(''csat_score'') }}'
+  - name: is_satisfied
+    description: '{{ doc(''is_satisfied'') }}'

@@ -1,0 +1,46 @@
+name: larkspur
+version: "1.0.0"
+config-version: 2
+profile: larkspur
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+snapshot-paths: ["snapshots"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  larkspur:
+    staging:
+      +materialized: view
+      +schema: staging
+      +group: platform
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+      +group: platform
+    marts:
+      +materialized: table
+      +schema: marts
+      core:
+        +group: platform
+        +access: public
+      finance:
+        +group: finance
+        +access: public
+      marketing:
+        +group: growth
+      operations:
+        +group: operations
+      club:
+        +group: growth
+
+seeds:
+  larkspur:
+    +schema: reference
+
+snapshots:
+  larkspur:
+    +target_schema: snapshots

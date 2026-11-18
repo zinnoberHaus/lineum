@@ -1,0 +1,49 @@
+models:
+- name: stg_inventory__warehouses
+  columns:
+  - name: warehouse_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''warehouse_id'') }}'
+  - name: warehouse_name
+    description: '{{ doc(''warehouse_name'') }}'
+  - name: region
+    description: '{{ doc(''region'') }}'
+  - name: opened_on
+    description: '{{ doc(''opened_on'') }}'
+- name: stg_inventory__stock_levels
+  description: Stock on hand and reserved units per warehouse, variant and month.
+  columns:
+  - name: snapshot_date
+    description: '{{ doc(''snapshot_date'') }}'
+  - name: warehouse_id
+    description: '{{ doc(''warehouse_id'') }}'
+  - name: variant_id
+    description: '{{ doc(''variant_id'') }}'
+  - name: on_hand
+    description: '{{ doc(''on_hand'') }}'
+  - name: reserved
+    description: '{{ doc(''reserved'') }}'
+  - name: available
+    description: '{{ doc(''available'') }}'
+- name: stg_inventory__shipments
+  description: Shipments with carrier cost in dollars.
+  columns:
+  - name: shipment_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''shipment_id'') }}'
+  - name: order_id
+    description: '{{ doc(''order_id'') }}'
+  - name: warehouse_id
+    description: '{{ doc(''warehouse_id'') }}'
+  - name: shipped_at
+    description: '{{ doc(''shipped_at'') }}'
+  - name: delivered_at
+    description: '{{ doc(''delivered_at'') }}'
+  - name: carrier
+    description: '{{ doc(''carrier'') }}'
+  - name: shipping_cost
+    description: '{{ doc(''shipping_cost'') }}'

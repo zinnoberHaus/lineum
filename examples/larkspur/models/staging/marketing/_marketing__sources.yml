@@ -1,0 +1,23 @@
+sources:
+  - name: marketing
+    description: Ad platform, email and web analytics exports.
+    database: larkspur
+    schema: raw_marketing
+    loader: fivetran-like connector
+    tables:
+      - name: campaigns
+        description: Campaign definitions across paid, email and affiliate channels.
+      - name: ad_spend
+        description: Daily spend, impressions and clicks per campaign.
+        loaded_at_field: "cast(spend_date as timestamp)"
+        config:
+          freshness:
+            warn_after: { count: 3, period: day }
+            error_after: { count: 60, period: day }
+      - name: email_events
+        description: Sends, opens, clicks and unsubscribes.
+      - name: web_sessions
+        description: Web analytics sessions with UTM parameters and the converting order, if any.
+        columns:
+          - name: id
+            data_tests: [unique, not_null]

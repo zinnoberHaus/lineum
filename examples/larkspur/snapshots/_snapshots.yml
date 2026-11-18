@@ -1,0 +1,3 @@
+snapshots:
+  - name: snap_products
+    description: Price and cost history of every product (SCD type 2).

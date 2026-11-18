@@ -1,0 +1,13 @@
+Lineum
+Copyright 2026 Zinnober Haus
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Lineum's idea of a modern documentation site for dbt Core projects was inspired by docglow
+(https://github.com/docglow/docglow, MIT License, Copyright (c) 2026 Josh). Lineum is an
+independent implementation and contains no docglow source code.
+
+dbt is a trademark of dbt Labs, Inc. Lineum is not affiliated with or endorsed by dbt Labs.
+
+The generated site's in-browser SQL loads DuckDB-WASM (MIT License, DuckDB Foundation) from the
+jsDelivr CDN at runtime; it is not redistributed in this package.

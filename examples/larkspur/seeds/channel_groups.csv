@@ -1,0 +1,10 @@
+utm_source,utm_medium,channel_group,is_paid
+google,cpc,Paid search,true
+meta,paid_social,Paid social,true
+tiktok,paid_social,Paid social,true
+youtube,display,Display,true
+partner,affiliate,Affiliate,true
+newsletter,email,Email,false
+organic,none,Organic,false
+direct,none,Direct,false
+referral,none,Referral,false

@@ -1,0 +1,10 @@
+sources:
+  - name: pos
+    description: Point-of-sale system for the retail stores.
+    database: larkspur
+    schema: raw_pos
+    loader: pos-nightly
+    tables:
+      - name: stores
+      - name: store_sales
+        description: One row per item sold in a store.

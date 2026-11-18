@@ -1,0 +1,35 @@
+# Lineum settings for the Larkspur example. Every setting also has a command-line flag.
+title: Larkspur Outfitters
+base_url: https://lineum-demo.vercel.app/
+data:
+  duckdb: larkspur.duckdb   # created by build_artifacts.sh; skipped when missing
+  rows: 100000              # the example is small enough to export every row
+queries:
+  - title: Revenue by month, online and in store
+    sql: |
+      select date_trunc('month', revenue_date) as month,
+        sum(revenue) filter (where sales_source = 'online') as online,
+        sum(revenue) filter (where sales_source = 'store') as store
+      from fct_daily_revenue
+      group by all
+      order by month
+  - title: Return on ad spend by channel
+    sql: |
+      select channel_group, sum(spend) as spend, sum(attributed_revenue) as revenue,
+        round(sum(attributed_revenue) / nullif(sum(spend), 0), 2) as roas
+      from mart_channel_roi
+      group by all
+      order by revenue desc
+  - title: Trail Club MRR by plan
+    sql: |
+      select month, plan, mrr
+      from fct_club_mrr
+      order by month, plan
+  - title: Late deliveries by carrier
+    sql: |
+      select carrier, count(*) as shipments,
+        count(*) filter (where days_in_transit > 7) as late,
+        round(100.0 * count(*) filter (where days_in_transit > 7) / count(*), 1) as pct_late
+      from fct_shipments
+      group by all
+      order by pct_late desc

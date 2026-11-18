@@ -1,0 +1,82 @@
+models:
+- name: fct_marketing_spend
+  description: Daily spend, impressions and clicks per campaign and channel group.
+  columns:
+  - name: spend_date
+    description: '{{ doc(''spend_date'') }}'
+  - name: channel_group
+    description: '{{ doc(''channel_group'') }}'
+  - name: campaign_id
+    description: '{{ doc(''campaign_id'') }}'
+  - name: campaign_name
+    description: '{{ doc(''campaign_name'') }}'
+  - name: impressions
+    description: '{{ doc(''impressions'') }}'
+  - name: clicks
+    description: '{{ doc(''clicks'') }}'
+  - name: spend
+    description: '{{ doc(''spend'') }}'
+  - name: click_through_rate
+    description: '{{ doc(''click_through_rate'') }}'
+- name: mart_channel_roi
+  description: Monthly spend against last-touch attributed revenue per channel group.
+  meta:
+    tier: gold
+  columns:
+  - name: month
+    description: '{{ doc(''month'') }}'
+  - name: channel_group
+    description: '{{ doc(''channel_group'') }}'
+  - name: spend
+    description: '{{ doc(''spend'') }}'
+  - name: attributed_orders
+    description: '{{ doc(''attributed_orders'') }}'
+  - name: attributed_revenue
+    description: '{{ doc(''attributed_revenue'') }}'
+  - name: return_on_ad_spend
+    description: Attributed revenue divided by spend. Null when a channel has no spend.
+  - name: cost_per_order
+    description: '{{ doc(''cost_per_order'') }}'
+- name: mart_customer_ltv
+  description: Customer lifetime value with cohort month and acquisition channel. Feeds the LTV model.
+  columns:
+  - name: customer_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''customer_id'') }}'
+  - name: region
+    description: '{{ doc(''region'') }}'
+  - name: lifecycle_stage
+    description: '{{ doc(''lifecycle_stage'') }}'
+  - name: is_club_member
+    description: '{{ doc(''is_club_member'') }}'
+  - name: cohort_month
+    description: '{{ doc(''cohort_month'') }}'
+  - name: order_count
+    description: '{{ doc(''order_count'') }}'
+  - name: lifetime_net_revenue
+    description: '{{ doc(''lifetime_net_revenue'') }}'
+  - name: average_order_value
+    description: '{{ doc(''average_order_value'') }}'
+  - name: active_days
+    description: '{{ doc(''active_days'') }}'
+  - name: acquisition_channel
+    description: '{{ doc(''acquisition_channel'') }}'
+- name: fct_email_engagement
+  columns:
+  - name: campaign_id
+    description: '{{ doc(''campaign_id'') }}'
+    data_tests:
+    - unique
+    - not_null
+  - name: campaign_name
+    description: '{{ doc(''campaign_name'') }}'
+  - name: sends
+    description: '{{ doc(''sends'') }}'
+  - name: opens
+    description: '{{ doc(''opens'') }}'
+  - name: clicks
+    description: '{{ doc(''clicks'') }}'
+  - name: unsubscribes
+    description: '{{ doc(''unsubscribes'') }}'
