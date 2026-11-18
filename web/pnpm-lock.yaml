@@ -28,8 +28,8 @@ importers:
         version: 19.3.0(react@19.3.0)
     devDependencies:
       '@types/node':
-        specifier: 24.6.2
-        version: 24.6.2
+        specifier: 26.6.6
+        version: 26.6.6
       '@types/react':
         specifier: 19.3.0
         version: 19.3.0
@@ -38,16 +38,16 @@ importers:
         version: 19.3.0(@types/react@19.3.0)
       '@vitejs/plugin-react':
         specifier: 6.1.2
-        version: 6.1.2(vite@8.3.3(@types/node@24.6.2))
+        version: 6.1.2(vite@8.3.3(@types/node@26.6.6))
       typescript:
         specifier: 5.9.3
         version: 5.9.3
       vite:
         specifier: 8.3.3
-        version: 8.3.3(@types/node@24.6.2)
+        version: 8.3.3(@types/node@26.6.6)
       vitest:
         specifier: 5.0.3
-        version: 5.0.3(@types/node@24.6.2)(vite@8.3.3(@types/node@24.6.2))
+        version: 5.0.3(@types/node@26.6.6)(vite@8.3.3(@types/node@26.6.6))
 
 packages:
 
@@ -220,8 +220,8 @@ packages:
   '@types/estree@1.0.10':
     resolution: {integrity: sha512-lTyOMnOcmRBzdCv6/4zUZCrEhV0xrqQiUZBZtVcbmLHBXKLnN8q89v/wKRF/Q0HbwVsqbIG3o5HDoFl9sduM+g==}
 
-  '@types/node@24.6.2':
-    resolution: {integrity: sha512-d2L25Y4j+W3ZlNAeMKcy7yDsK425ibcAOO2t7aPTz6gNMH0z2GThtwENCDc0d/Pw9wgyRqE5Px1wkV7naz8ang==}
+  '@types/node@26.6.6':
+    resolution: {integrity: sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==}
 
   '@types/react-dom@19.3.0':
     resolution: {integrity: sha512-ZI7bU42mZXXKHn/qNLEw2IrbiINU7X5+vfgdixBHkCNpYWXjKgfQ/P+uyGb5CjOLB9UcnTeg3rylQtV2hym44Q==}
@@ -494,8 +494,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@7.13.0:
-    resolution: {integrity: sha512-Ov2Rr9Sx+fRgagJ5AX0qvItZG/JKKoBRAVITs1zk7IqZGTJUwgUr7qoYBpWwakpWilTZFM98rG/AFRocu10iIQ==}
+  undici-types@8.9.0:
+    resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
 
   use-sync-external-store@1.7.0:
     resolution: {integrity: sha512-6L+EeigHMQhdaIPNIFUKwfWJSwWFQ8gJbJ2DLOs5sDIegTwR9fRxvnM3uciHKjIZhFz+KAv2emhWMRvDmMcY8A==}
@@ -741,9 +741,9 @@ snapshots:
 
   '@types/estree@1.0.10': {}
 
-  '@types/node@24.6.2':
+  '@types/node@26.6.6':
     dependencies:
-      undici-types: 7.13.0
+      undici-types: 8.9.0
 
   '@types/react-dom@19.3.0(@types/react@19.3.0)':
     dependencies:
@@ -753,19 +753,19 @@ snapshots:
     dependencies:
       csstype: 3.2.4
 
-  '@vitejs/plugin-react@6.1.2(vite@8.3.3(@types/node@24.6.2))':
+  '@vitejs/plugin-react@6.1.2(vite@8.3.3(@types/node@26.6.6))':
     dependencies:
       '@rolldown/pluginutils': 1.1.1
-      vite: 8.3.3(@types/node@24.6.2)
+      vite: 8.3.3(@types/node@26.6.6)
 
-  '@vitest/mocker@5.0.3(vite@8.3.3(@types/node@24.6.2))':
+  '@vitest/mocker@5.0.3(vite@8.3.3(@types/node@26.6.6))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.3
       estree-walker: 3.0.3
       magic-string: 1.4.5
     optionalDependencies:
-      vite: 8.3.3(@types/node@24.6.2)
+      vite: 8.3.3(@types/node@26.6.6)
 
   '@vitest/spy@5.0.3': {}
 
@@ -971,13 +971,13 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  undici-types@7.13.0: {}
+  undici-types@8.9.0: {}
 
   use-sync-external-store@1.7.0(react@19.3.0):
     dependencies:
       react: 19.3.0
 
-  vite@8.3.3(@types/node@24.6.2):
+  vite@8.3.3(@types/node@26.6.6):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -985,13 +985,13 @@ snapshots:
       rolldown: 1.2.19
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 24.6.2
+      '@types/node': 26.6.6
       fsevents: 2.3.3
 
-  vitest@5.0.3(@types/node@24.6.2)(vite@8.3.3(@types/node@24.6.2)):
+  vitest@5.0.3(@types/node@26.6.6)(vite@8.3.3(@types/node@26.6.6)):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.0.3(vite@8.3.3(@types/node@24.6.2))
+      '@vitest/mocker': 5.0.3(vite@8.3.3(@types/node@26.6.6))
       chai: 6.3.0
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
@@ -1002,10 +1002,10 @@ snapshots:
       tinybench: 6.2.4
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
-      vite: 8.3.3(@types/node@24.6.2)
+      vite: 8.3.3(@types/node@26.6.6)
       why-is-node-running: 3.2.1
     optionalDependencies:
-      '@types/node': 24.6.2
+      '@types/node': 26.6.6
     transitivePeerDependencies:
       - msw
 
