@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lineum"
+version = "0.0.0"
+description = "Data lineage documentation for dbt projects (planning; placeholder)."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "Zinnober Haus" }]
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Programming Language :: Python :: 3",
+  "Topic :: Database",
+  "Topic :: Software Development :: Documentation",
+]
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/zinnoberHaus/lineum"
+Issues = "https://github.com/zinnoberHaus/lineum/issues"
+
+[project.scripts]
+lineum = "lineum.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lineum"]
