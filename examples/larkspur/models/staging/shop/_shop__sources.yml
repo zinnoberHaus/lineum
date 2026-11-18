@@ -1,0 +1,49 @@
+sources:
+  - name: shop
+    description: Storefront platform export (orders, customers, catalogue). Loaded hourly by the ingestion service.
+    database: larkspur
+    schema: raw_shop
+    loader: ingest-service
+    loaded_at_field: created_at
+    config:
+      freshness:
+        warn_after: { count: 14, period: day }
+        error_after: { count: 45, period: day }
+    tables:
+      - name: orders
+        description: One row per storefront order, including cancelled and refunded orders.
+        columns:
+          - name: id
+            description: Storefront order id.
+            data_tests: [unique, not_null]
+          - name: customer_id
+            description: The customer who placed the order.
+          - name: financial_status
+            description: Payment state reported by the storefront.
+      - name: order_lines
+        description: One row per product variant on an order.
+        config:
+          freshness: null
+        columns:
+          - name: id
+            data_tests: [unique, not_null]
+      - name: customers
+        description: Storefront customer accounts.
+        config:
+          freshness: null
+        columns:
+          - name: id
+            data_tests: [unique, not_null]
+          - name: email
+            description: Customer email address (PII).
+            meta: { pii: true }
+      - name: products
+        description: Product catalogue with unit cost and list price.
+        config:
+          freshness: null
+      - name: product_variants
+        description: Sellable variants (size and colour) of each product.
+        config:
+          freshness: null
+      - name: refunds
+        description: Refunds issued from the storefront admin.

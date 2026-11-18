@@ -1,6 +1,8 @@
 # Security policy
 
-Lineum is in planning and has no released package. There are currently no stable releases or long-term support commitments; security fixes target the current default branch.
+Lineum is a 0.1 preview without a PyPI release. There are no stable releases or long-term support commitments; security fixes target the current default branch.
+
+Generated sites contain what your dbt artifacts contain: descriptions, column names, SQL (unless built with `--no-sql`) and, with `--data`, sample rows. Treat a site as you would the warehouse metadata it documents. Lineum renders descriptions with raw HTML disabled and drops unsafe link schemes; report any way to run script in a generated site as a vulnerability. The SQL page loads DuckDB-WASM from cdn.jsdelivr.net when opened.
 
 Do not disclose exploitable vulnerabilities, credentials, or customer data in public issues or pull requests.
 

@@ -1,0 +1,53 @@
+semantic_models:
+  - name: orders
+    description: Storefront orders for the semantic layer.
+    model: ref('fct_orders')
+    defaults:
+      agg_time_dimension: order_date
+    entities:
+      - name: order
+        type: primary
+        expr: order_id
+      - name: customer
+        type: foreign
+        expr: customer_id
+    dimensions:
+      - name: order_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: sales_channel
+        type: categorical
+    measures:
+      - name: order_count
+        agg: count
+        expr: order_id
+      - name: net_revenue
+        agg: sum
+      - name: margin_amount
+        agg: sum
+
+metrics:
+  - name: revenue
+    label: Net revenue
+    description: Revenue after discounts and refunds.
+    type: simple
+    type_params:
+      measure: net_revenue
+  - name: orders
+    label: Orders
+    type: simple
+    type_params:
+      measure: order_count
+  - name: margin
+    label: Margin
+    type: simple
+    type_params:
+      measure: margin_amount
+  - name: margin_rate
+    label: Margin rate
+    description: Margin divided by net revenue.
+    type: ratio
+    type_params:
+      numerator: margin
+      denominator: revenue

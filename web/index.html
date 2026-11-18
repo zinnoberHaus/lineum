@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lineum dev</title>
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body>
+    <!-- Dev only: `pnpm dev:data` writes a demo site to public/dev-site; this page reuses its payload. -->
+    <div id="lineum-root" data-page='{"kind":"overview"}' data-root=""></div>
+    <script src="/dev-site/assets/data.js"></script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

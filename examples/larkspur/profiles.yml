@@ -1,0 +1,7 @@
+larkspur:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: larkspur.duckdb
+      threads: 4

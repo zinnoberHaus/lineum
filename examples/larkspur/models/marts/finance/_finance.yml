@@ -1,0 +1,70 @@
+models:
+- name: fct_daily_revenue
+  description: Daily revenue and margin by sales source (online or store).
+  columns:
+  - name: sales_source
+    description: '{{ doc(''sales_source'') }}'
+  - name: sale_lines
+    description: '{{ doc(''sale_lines'') }}'
+  - name: units
+    description: '{{ doc(''units'') }}'
+  - name: revenue
+    description: Revenue after discounts, before refunds.
+  - name: margin
+    description: '{{ doc(''margin'') }}'
+- name: fct_payments
+  description: Payment outcomes per order.
+  columns:
+  - name: order_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''order_id'') }}'
+  - name: payment_method
+    description: '{{ doc(''payment_method'') }}'
+  - name: charge_attempts
+    description: '{{ doc(''charge_attempts'') }}'
+  - name: successful_charges
+    description: '{{ doc(''successful_charges'') }}'
+  - name: amount_captured
+    description: '{{ doc(''amount_captured'') }}'
+  - name: processing_fees
+    description: '{{ doc(''processing_fees'') }}'
+  - name: amount_refunded_by_processor
+    description: '{{ doc(''amount_refunded_by_processor'') }}'
+  - name: failed_charges
+    description: '{{ doc(''failed_charges'') }}'
+- name: mart_executive_kpis
+  description: 'Monthly company KPIs for the executive dashboard: revenue, margin, orders, average order
+
+    value, refunds, new customers, Trail Club MRR and average CSAT.
+
+    '
+  meta:
+    tier: gold
+  columns:
+  - name: month
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''month'') }}'
+  - name: revenue
+    description: '{{ doc(''revenue'') }}'
+  - name: margin
+    description: '{{ doc(''margin'') }}'
+  - name: margin_rate
+    description: Margin divided by revenue.
+  - name: store_revenue
+    description: '{{ doc(''store_revenue'') }}'
+  - name: orders
+    description: '{{ doc(''orders'') }}'
+  - name: average_order_value
+    description: '{{ doc(''average_order_value'') }}'
+  - name: refunds
+    description: '{{ doc(''refunds'') }}'
+  - name: new_customers
+    description: '{{ doc(''new_customers'') }}'
+  - name: club_mrr
+    description: '{{ doc(''club_mrr'') }}'
+  - name: average_csat
+    description: '{{ doc(''average_csat'') }}'

@@ -1,0 +1,147 @@
+models:
+- name: stg_shop__orders
+  description: Storefront orders, one row per order, with amounts in dollars.
+  columns:
+  - name: order_id
+    description: Primary key.
+    data_tests:
+    - unique
+    - not_null
+  - name: customer_id
+    description: Foreign key to `stg_shop__customers`.
+    data_tests:
+    - relationships:
+        arguments:
+          to: ref('stg_shop__customers')
+          field: customer_id
+  - name: order_number
+    description: '{{ doc(''order_number'') }}'
+  - name: ordered_at
+    description: When the order was placed (UTC).
+  - name: financial_status
+    description: paid, pending, refunded or partially_refunded.
+    data_tests:
+    - accepted_values:
+        arguments:
+          values:
+          - paid
+          - pending
+          - refunded
+          - partially_refunded
+  - name: fulfillment_status
+    description: '{{ doc(''fulfillment_status'') }}'
+  - name: sales_channel
+    description: web, app or marketplace.
+  - name: discount_code
+    description: '{{ doc(''discount_code'') }}'
+  - name: shipping_amount
+    description: Shipping charged to the customer, in dollars.
+  - name: tax_amount
+    description: Sales tax, in dollars.
+  - name: currency
+    description: '{{ doc(''currency'') }}'
+- name: stg_shop__order_lines
+  description: One row per variant on an order.
+  columns:
+  - name: order_line_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''order_line_id'') }}'
+  - name: order_id
+    data_tests:
+    - not_null
+    description: '{{ doc(''order_id'') }}'
+  - name: variant_id
+    description: '{{ doc(''variant_id'') }}'
+  - name: quantity
+    description: '{{ doc(''quantity'') }}'
+  - name: unit_price
+    description: '{{ doc(''unit_price'') }}'
+  - name: gross_amount
+    description: Quantity times unit price, before discounts.
+  - name: discount_amount
+    description: Line-level discount in dollars.
+- name: stg_shop__customers
+  description: Customer accounts with normalised names and country codes.
+  columns:
+  - name: customer_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''customer_id'') }}'
+  - name: email
+    description: Lower-cased email address (PII).
+    meta:
+      pii: true
+  - name: first_name
+    description: '{{ doc(''first_name'') }}'
+  - name: last_name
+    description: '{{ doc(''last_name'') }}'
+  - name: full_name
+    description: '{{ doc(''full_name'') }}'
+  - name: country_code
+    description: '{{ doc(''country_code'') }}'
+  - name: signed_up_at
+    description: '{{ doc(''signed_up_at'') }}'
+  - name: accepts_marketing
+    description: '{{ doc(''accepts_marketing'') }}'
+- name: stg_shop__products
+  description: Product catalogue with cost and price in dollars.
+  columns:
+  - name: product_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''product_id'') }}'
+  - name: product_name
+    description: '{{ doc(''product_name'') }}'
+  - name: category
+    description: '{{ doc(''category'') }}'
+  - name: subcategory
+    description: '{{ doc(''subcategory'') }}'
+  - name: vendor
+    description: '{{ doc(''vendor'') }}'
+  - name: unit_cost
+    description: '{{ doc(''unit_cost'') }}'
+  - name: list_price
+    description: '{{ doc(''list_price'') }}'
+  - name: launched_at
+    description: '{{ doc(''launched_at'') }}'
+  - name: is_active
+    description: '{{ doc(''is_active'') }}'
+- name: stg_shop__variants
+  columns:
+  - name: variant_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''variant_id'') }}'
+  - name: product_id
+    description: '{{ doc(''product_id'') }}'
+  - name: sku
+    description: '{{ doc(''sku'') }}'
+  - name: size
+    description: '{{ doc(''size'') }}'
+  - name: color
+    description: '{{ doc(''color'') }}'
+  - name: price
+    description: '{{ doc(''price'') }}'
+  - name: weight_grams
+    description: '{{ doc(''weight_grams'') }}'
+- name: stg_shop__refunds
+  description: Refunds issued in the storefront admin.
+  columns:
+  - name: refund_id
+    description: '{{ doc(''refund_id'') }}'
+    data_tests:
+    - unique
+    - not_null
+  - name: order_id
+    description: '{{ doc(''order_id'') }}'
+  - name: refunded_at
+    description: '{{ doc(''refunded_at'') }}'
+  - name: refund_amount
+    description: '{{ doc(''refund_amount'') }}'
+  - name: refund_reason
+    description: '{{ doc(''refund_reason'') }}'

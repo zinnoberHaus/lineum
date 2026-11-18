@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  test:
+  python:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -16,6 +16,30 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: ${{ matrix.python-version }}
-      - run: python -m pip install -e .
-      - run: python -m unittest discover -s tests -v
-      - run: lineum --version
+      - run: python -m pip install -e ".[dev,data]"
+      - run: python -m unittest discover -s tests -t . -v
+      - run: ruff check src tests
+      - name: Build the example site
+        run: lineum build examples/larkspur --out "$RUNNER_TEMP/site" --base-url https://lineum-demo.vercel.app/
+      - run: lineum check examples/larkspur --format markdown >> "$GITHUB_STEP_SUMMARY"
+
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+        with:
+          package_json_file: web/package.json
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+      - run: pnpm build
+      - name: The committed app matches the source
+        run: git diff --exit-code -- ../src/lineum/static

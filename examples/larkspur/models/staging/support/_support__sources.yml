@@ -1,0 +1,13 @@
+sources:
+  - name: support
+    description: Help desk tickets and satisfaction ratings.
+    database: larkspur
+    schema: raw_support
+    loader: ingest-service
+    loaded_at_field: created_at
+    tables:
+      - name: tickets
+        config:
+          freshness:
+            warn_after: { count: 7, period: day }
+      - name: satisfaction_ratings

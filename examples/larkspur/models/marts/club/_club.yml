@@ -1,0 +1,12 @@
+models:
+- name: fct_club_mrr
+  description: Trail Club monthly recurring revenue and active members by plan.
+  columns:
+  - name: month
+    description: '{{ doc(''month'') }}'
+  - name: plan
+    description: '{{ doc(''plan'') }}'
+  - name: active_members
+    description: '{{ doc(''active_members'') }}'
+  - name: mrr
+    description: Monthly recurring revenue. Annual plans count one twelfth of their price.

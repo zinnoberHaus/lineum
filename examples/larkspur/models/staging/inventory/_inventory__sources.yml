@@ -1,0 +1,13 @@
+sources:
+  - name: inventory
+    description: Warehouse management system exports.
+    database: larkspur
+    schema: raw_inventory
+    loader: wms-export
+    tables:
+      - name: warehouses
+        description: Distribution centres.
+      - name: stock_levels
+        description: Month-start stock snapshot per warehouse and variant.
+      - name: shipments
+        description: Outbound shipments for storefront orders.

@@ -1,0 +1,40 @@
+models:
+- name: stg_pos__stores
+  columns:
+  - name: store_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''store_id'') }}'
+  - name: store_name
+    description: '{{ doc(''store_name'') }}'
+  - name: city
+    description: '{{ doc(''city'') }}'
+  - name: region
+    description: '{{ doc(''region'') }}'
+  - name: opened_on
+    description: '{{ doc(''opened_on'') }}'
+  - name: square_feet
+    description: '{{ doc(''square_feet'') }}'
+- name: stg_pos__store_sales
+  description: In-store sales lines in dollars.
+  columns:
+  - name: store_sale_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''store_sale_id'') }}'
+  - name: store_id
+    description: '{{ doc(''store_id'') }}'
+  - name: sold_at
+    description: '{{ doc(''sold_at'') }}'
+  - name: variant_id
+    description: '{{ doc(''variant_id'') }}'
+  - name: quantity
+    description: '{{ doc(''quantity'') }}'
+  - name: unit_price
+    description: '{{ doc(''unit_price'') }}'
+  - name: sale_amount
+    description: '{{ doc(''sale_amount'') }}'
+  - name: customer_id
+    description: '{{ doc(''customer_id'') }}'

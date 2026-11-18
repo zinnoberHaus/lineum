@@ -1,0 +1,212 @@
+models:
+- name: int_order_lines__margin
+  description: Storefront order lines with product cost and margin.
+  columns:
+  - name: order_line_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''order_line_id'') }}'
+  - name: order_id
+    description: '{{ doc(''order_id'') }}'
+  - name: variant_id
+    description: '{{ doc(''variant_id'') }}'
+  - name: product_id
+    description: '{{ doc(''product_id'') }}'
+  - name: category
+    description: '{{ doc(''category'') }}'
+  - name: quantity
+    description: '{{ doc(''quantity'') }}'
+  - name: gross_amount
+    description: '{{ doc(''gross_amount'') }}'
+  - name: discount_amount
+    description: '{{ doc(''discount_amount'') }}'
+  - name: net_amount
+    description: Gross amount minus discount.
+  - name: cost_amount
+    description: '{{ doc(''cost_amount'') }}'
+  - name: margin_amount
+    description: Net amount minus unit cost times quantity.
+- name: int_payments__by_order
+  description: Charges and processor refunds rolled up to one row per order.
+  columns:
+  - name: order_id
+    data_tests:
+    - unique
+    description: '{{ doc(''order_id'') }}'
+  - name: charge_attempts
+    description: '{{ doc(''charge_attempts'') }}'
+  - name: successful_charges
+    description: '{{ doc(''successful_charges'') }}'
+  - name: amount_captured
+    description: '{{ doc(''amount_captured'') }}'
+  - name: processing_fees
+    description: '{{ doc(''processing_fees'') }}'
+  - name: amount_refunded_by_processor
+    description: '{{ doc(''amount_refunded_by_processor'') }}'
+  - name: payment_method
+    description: '{{ doc(''payment_method'') }}'
+- name: int_refunds__by_order
+  description: Storefront refunds per order. Ephemeral, inlined into its consumers.
+  columns: []
+- name: int_orders__enriched
+  description: The order spine. Joins lines, payments, refunds and shipments onto each order.
+  columns:
+  - name: order_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''order_id'') }}'
+  - name: customer_id
+    description: '{{ doc(''customer_id'') }}'
+  - name: order_number
+    description: '{{ doc(''order_number'') }}'
+  - name: ordered_at
+    description: '{{ doc(''ordered_at'') }}'
+  - name: financial_status
+    description: '{{ doc(''financial_status'') }}'
+  - name: sales_channel
+    description: '{{ doc(''sales_channel'') }}'
+  - name: discount_code
+    description: '{{ doc(''discount_code'') }}'
+  - name: line_count
+    description: '{{ doc(''line_count'') }}'
+  - name: units
+    description: '{{ doc(''units'') }}'
+  - name: gross_amount
+    description: '{{ doc(''gross_amount'') }}'
+  - name: discount_amount
+    description: '{{ doc(''discount_amount'') }}'
+  - name: net_amount
+    description: '{{ doc(''net_amount'') }}'
+  - name: shipping_amount
+    description: '{{ doc(''shipping_amount'') }}'
+  - name: tax_amount
+    description: '{{ doc(''tax_amount'') }}'
+  - name: order_total
+    description: Net amount plus shipping and tax.
+  - name: cost_amount
+    description: '{{ doc(''cost_amount'') }}'
+  - name: margin_amount
+    description: '{{ doc(''margin_amount'') }}'
+  - name: amount_captured
+    description: '{{ doc(''amount_captured'') }}'
+  - name: processing_fees
+    description: '{{ doc(''processing_fees'') }}'
+  - name: payment_method
+    description: '{{ doc(''payment_method'') }}'
+  - name: refund_amount
+    description: '{{ doc(''refund_amount'') }}'
+  - name: shipping_cost
+    description: '{{ doc(''shipping_cost'') }}'
+  - name: delivered_at
+    description: '{{ doc(''delivered_at'') }}'
+- name: int_customers__order_history
+  description: First and last order dates, order count and lifetime value per customer.
+  columns:
+  - name: customer_id
+    description: '{{ doc(''customer_id'') }}'
+    data_tests:
+    - unique
+    - not_null
+  - name: first_ordered_at
+    description: '{{ doc(''first_ordered_at'') }}'
+  - name: last_ordered_at
+    description: '{{ doc(''last_ordered_at'') }}'
+  - name: order_count
+    description: '{{ doc(''order_count'') }}'
+  - name: lifetime_net_revenue
+    description: '{{ doc(''lifetime_net_revenue'') }}'
+  - name: lifetime_margin
+    description: '{{ doc(''lifetime_margin'') }}'
+- name: int_sales__unified
+  description: Online order lines and store sales at a common grain.
+  columns:
+  - name: sales_source
+    description: '{{ doc(''sales_source'') }}'
+  - name: sale_line_id
+    description: '{{ doc(''sale_line_id'') }}'
+  - name: sold_at
+    description: '{{ doc(''sold_at'') }}'
+  - name: customer_id
+    description: '{{ doc(''customer_id'') }}'
+  - name: variant_id
+    description: '{{ doc(''variant_id'') }}'
+  - name: quantity
+    description: '{{ doc(''quantity'') }}'
+  - name: revenue
+    description: '{{ doc(''revenue'') }}'
+  - name: margin
+    description: '{{ doc(''margin'') }}'
+  - name: store_id
+    description: '{{ doc(''store_id'') }}'
+- name: int_marketing__spend_daily
+  description: Daily spend per campaign with its channel group.
+  columns:
+  - name: spend_date
+    description: '{{ doc(''spend_date'') }}'
+  - name: campaign_id
+    description: '{{ doc(''campaign_id'') }}'
+  - name: campaign_name
+    description: '{{ doc(''campaign_name'') }}'
+  - name: channel_group
+    description: '{{ doc(''channel_group'') }}'
+  - name: impressions
+    description: '{{ doc(''impressions'') }}'
+  - name: clicks
+    description: '{{ doc(''clicks'') }}'
+  - name: spend
+    description: '{{ doc(''spend'') }}'
+- name: int_marketing__attributed_orders
+  description: Last-touch attribution of orders to the session and channel that produced them.
+  columns:
+  - name: order_id
+    description: '{{ doc(''order_id'') }}'
+  - name: session_id
+    description: '{{ doc(''session_id'') }}'
+  - name: campaign_id
+    description: '{{ doc(''campaign_id'') }}'
+  - name: channel_group
+    description: '{{ doc(''channel_group'') }}'
+  - name: device
+    description: '{{ doc(''device'') }}'
+  - name: attributed_revenue
+    description: '{{ doc(''attributed_revenue'') }}'
+  - name: attributed_margin
+    description: '{{ doc(''attributed_margin'') }}'
+- name: int_inventory__monthly_position
+  description: Month-start inventory position and stock value per warehouse and variant.
+  columns:
+  - name: snapshot_date
+    description: '{{ doc(''snapshot_date'') }}'
+  - name: warehouse_id
+    description: '{{ doc(''warehouse_id'') }}'
+  - name: variant_id
+    description: '{{ doc(''variant_id'') }}'
+  - name: product_id
+    description: '{{ doc(''product_id'') }}'
+  - name: category
+    description: '{{ doc(''category'') }}'
+  - name: on_hand
+    description: '{{ doc(''on_hand'') }}'
+  - name: available
+    description: '{{ doc(''available'') }}'
+  - name: stock_value
+    description: '{{ doc(''stock_value'') }}'
+  - name: is_stocked_out
+    description: '{{ doc(''is_stocked_out'') }}'
+- name: int_support__ticket_metrics
+  columns: []
+- name: int_club__member_months
+  description: Membership-month spine used for MRR.
+  columns:
+  - name: membership_id
+    description: '{{ doc(''membership_id'') }}'
+  - name: customer_id
+    description: '{{ doc(''customer_id'') }}'
+  - name: plan
+    description: '{{ doc(''plan'') }}'
+  - name: month
+    description: '{{ doc(''month'') }}'
+  - name: mrr
+    description: '{{ doc(''mrr'') }}'

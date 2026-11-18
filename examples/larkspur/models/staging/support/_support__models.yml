@@ -1,0 +1,48 @@
+models:
+- name: stg_support__tickets
+  description: Help desk tickets with resolution timestamps.
+  columns:
+  - name: ticket_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''ticket_id'') }}'
+  - name: customer_id
+    description: '{{ doc(''customer_id'') }}'
+  - name: order_id
+    description: '{{ doc(''order_id'') }}'
+  - name: opened_at
+    description: '{{ doc(''opened_at'') }}'
+  - name: solved_at
+    description: '{{ doc(''solved_at'') }}'
+  - name: contact_channel
+    description: '{{ doc(''contact_channel'') }}'
+  - name: category
+    data_tests:
+    - accepted_values:
+        arguments:
+          values:
+          - shipping
+          - returns
+          - product
+          - billing
+    description: '{{ doc(''category'') }}'
+  - name: priority
+    description: '{{ doc(''priority'') }}'
+  - name: ticket_status
+    description: '{{ doc(''ticket_status'') }}'
+- name: stg_support__csat
+  columns:
+  - name: rating_id
+    description: '{{ doc(''rating_id'') }}'
+    data_tests:
+    - unique
+    - not_null
+  - name: ticket_id
+    description: '{{ doc(''ticket_id'') }}'
+  - name: rated_at
+    description: '{{ doc(''rated_at'') }}'
+  - name: csat_score
+    description: '{{ doc(''csat_score'') }}'
+  - name: is_satisfied
+    description: '{{ doc(''is_satisfied'') }}'

@@ -1,3 +1,3 @@
-"""Lineum: data lineage documentation for dbt projects (planning; placeholder)."""
+"""Lineum: lineage-first documentation for dbt projects."""
 
-__version__ = "0.0.0"
+__version__ = "0.1.0"

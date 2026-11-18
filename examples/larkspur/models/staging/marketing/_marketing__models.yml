@@ -1,0 +1,79 @@
+models:
+- name: stg_marketing__campaigns
+  description: Campaigns with their UTM source and medium.
+  columns:
+  - name: campaign_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''campaign_id'') }}'
+  - name: campaign_name
+    description: '{{ doc(''campaign_name'') }}'
+  - name: utm_source
+    description: '{{ doc(''utm_source'') }}'
+  - name: utm_medium
+    description: '{{ doc(''utm_medium'') }}'
+  - name: objective
+    description: '{{ doc(''objective'') }}'
+  - name: start_date
+    description: '{{ doc(''start_date'') }}'
+  - name: end_date
+    description: '{{ doc(''end_date'') }}'
+  - name: budget
+    description: '{{ doc(''budget'') }}'
+- name: stg_marketing__ad_spend
+  description: Daily ad spend per campaign, in dollars.
+  columns:
+  - name: spend_date
+    data_tests:
+    - not_null
+    description: '{{ doc(''spend_date'') }}'
+  - name: campaign_id
+    description: '{{ doc(''campaign_id'') }}'
+  - name: impressions
+    description: '{{ doc(''impressions'') }}'
+  - name: clicks
+    description: '{{ doc(''clicks'') }}'
+  - name: spend
+    description: '{{ doc(''spend'') }}'
+- name: stg_marketing__email_events
+  columns:
+  - name: email_event_id
+    description: '{{ doc(''email_event_id'') }}'
+    data_tests:
+    - unique
+    - not_null
+  - name: campaign_id
+    description: '{{ doc(''campaign_id'') }}'
+  - name: customer_id
+    description: '{{ doc(''customer_id'') }}'
+  - name: event_type
+    description: '{{ doc(''event_type'') }}'
+  - name: occurred_at
+    description: '{{ doc(''occurred_at'') }}'
+- name: stg_marketing__sessions
+  description: Web sessions. `converted_order_id` links a session to the order it produced.
+  columns:
+  - name: session_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''session_id'') }}'
+  - name: anonymous_id
+    description: '{{ doc(''anonymous_id'') }}'
+  - name: customer_id
+    description: '{{ doc(''customer_id'') }}'
+  - name: started_at
+    description: '{{ doc(''started_at'') }}'
+  - name: utm_source
+    description: '{{ doc(''utm_source'') }}'
+  - name: utm_medium
+    description: '{{ doc(''utm_medium'') }}'
+  - name: campaign_id
+    description: '{{ doc(''campaign_id'') }}'
+  - name: device
+    description: '{{ doc(''device'') }}'
+  - name: landing_page
+    description: '{{ doc(''landing_page'') }}'
+  - name: converted_order_id
+    description: '{{ doc(''converted_order_id'') }}'

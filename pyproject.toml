@@ -4,27 +4,69 @@ build-backend = "hatchling.build"
 
 [project]
 name = "lineum"
-version = "0.0.0"
-description = "Data lineage documentation for dbt projects (planning; placeholder)."
+dynamic = ["version"]
+description = "Lineage-first documentation for dbt projects: an interactive lineage explorer, column lineage and in-browser SQL in a static site."
 readme = "README.md"
 license = "Apache-2.0"
-license-files = ["LICENSE"]
+license-files = ["LICENSE", "NOTICE"]
 requires-python = ">=3.10"
 authors = [{ name = "Zinnober Haus" }]
+keywords = ["dbt", "dbt-core", "data-lineage", "column-lineage", "documentation", "data-catalog", "analytics-engineering"]
 classifiers = [
-  "Development Status :: 1 - Planning",
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Database",
   "Topic :: Software Development :: Documentation",
+  "Typing :: Typed",
 ]
-dependencies = []
+dependencies = [
+  "sqlglot>=25.0",
+  "markdown-it-py>=3.0",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+data = ["duckdb>=1.1"]
+dev = ["pytest>=8.0", "ruff>=0.8", "mypy>=1.10", "types-PyYAML"]
 
 [project.urls]
+Homepage = "https://github.com/zinnoberHaus/lineum"
 Repository = "https://github.com/zinnoberHaus/lineum"
 Issues = "https://github.com/zinnoberHaus/lineum/issues"
+Changelog = "https://github.com/zinnoberHaus/lineum/blob/main/CHANGELOG.md"
 
 [project.scripts]
 lineum = "lineum.cli:main"
 
+[tool.hatch.version]
+path = "src/lineum/__init__.py"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/lineum"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/lineum", "tests", "docs", "README.md", "LICENSE", "NOTICE", "CHANGELOG.md"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = false
+warn_unused_ignores = true
+ignore_missing_imports = true

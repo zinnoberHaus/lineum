@@ -1,0 +1,17 @@
+groups:
+  - name: platform
+    owner:
+      name: Data platform
+      email: data-platform@larkspur.example
+  - name: finance
+    owner:
+      name: Finance analytics
+      email: finance-analytics@larkspur.example
+  - name: growth
+    owner:
+      name: Growth analytics
+      email: growth@larkspur.example
+  - name: operations
+    owner:
+      name: Operations analytics
+      email: ops-analytics@larkspur.example

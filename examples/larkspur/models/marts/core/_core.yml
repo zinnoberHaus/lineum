@@ -1,0 +1,200 @@
+models:
+- name: dim_dates
+  description: Calendar spine from 2023 to 2026.
+  time_spine:
+    standard_granularity_column: date_day
+  columns:
+  - name: date_day
+    granularity: day
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''date_day'') }}'
+  - name: year
+    description: '{{ doc(''year'') }}'
+  - name: quarter
+    description: '{{ doc(''quarter'') }}'
+  - name: month
+    description: '{{ doc(''month'') }}'
+  - name: month_start
+    description: '{{ doc(''month_start'') }}'
+  - name: week_start
+    description: '{{ doc(''week_start'') }}'
+  - name: day_name
+    description: '{{ doc(''day_name'') }}'
+  - name: is_weekend
+    description: '{{ doc(''is_weekend'') }}'
+- name: dim_customers
+  description: 'One row per customer with lifecycle stage and lifetime value.
+
+
+    **Lifecycle stage** is `prospect` (no orders), `new` (one order), `repeat`, or `lapsed`
+
+    (no order since 2026-05-01).
+
+    '
+  columns:
+  - name: customer_id
+    description: Primary key.
+    data_tests:
+    - unique
+    - not_null
+  - name: email
+    description: Lower-cased email address (PII).
+    meta:
+      pii: true
+  - name: full_name
+    description: '{{ doc(''full_name'') }}'
+  - name: country_code
+    description: '{{ doc(''country_code'') }}'
+  - name: country_name
+    description: '{{ doc(''country_name'') }}'
+  - name: region
+    description: Sales region from the `country_codes` seed.
+  - name: signed_up_at
+    description: '{{ doc(''signed_up_at'') }}'
+  - name: accepts_marketing
+    description: '{{ doc(''accepts_marketing'') }}'
+  - name: first_ordered_at
+    description: '{{ doc(''first_ordered_at'') }}'
+  - name: last_ordered_at
+    description: '{{ doc(''last_ordered_at'') }}'
+  - name: order_count
+    description: '{{ doc(''order_count'') }}'
+  - name: lifetime_net_revenue
+    description: Net revenue after refunds across all orders.
+  - name: lifecycle_stage
+    description: prospect, new, repeat or lapsed.
+    data_tests:
+    - accepted_values:
+        arguments:
+          values:
+          - prospect
+          - new
+          - repeat
+          - lapsed
+  - name: is_club_member
+    description: True when the customer has an active Trail Club membership.
+- name: dim_products
+  description: Products with list margin and variant count.
+  columns:
+  - name: product_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''product_id'') }}'
+  - name: product_name
+    description: '{{ doc(''product_name'') }}'
+  - name: category
+    description: '{{ doc(''category'') }}'
+  - name: subcategory
+    description: '{{ doc(''subcategory'') }}'
+  - name: unit_cost
+    description: '{{ doc(''unit_cost'') }}'
+  - name: list_price
+    description: '{{ doc(''list_price'') }}'
+  - name: list_margin_rate
+    description: (list price − unit cost) / list price.
+  - name: launched_at
+    description: '{{ doc(''launched_at'') }}'
+  - name: is_active
+    description: '{{ doc(''is_active'') }}'
+  - name: variant_count
+    description: '{{ doc(''variant_count'') }}'
+- name: dim_stores
+  description: Retail stores.
+  columns:
+  - name: store_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''store_id'') }}'
+  - name: store_name
+    description: '{{ doc(''store_name'') }}'
+  - name: city
+    description: '{{ doc(''city'') }}'
+  - name: region
+    description: '{{ doc(''region'') }}'
+  - name: opened_on
+    description: '{{ doc(''opened_on'') }}'
+  - name: square_feet
+    description: '{{ doc(''square_feet'') }}'
+- name: fct_orders
+  description: One row per storefront order. The contract is enforced; downstream teams rely on these types.
+  config:
+    contract:
+      enforced: true
+  columns:
+  - name: order_id
+    data_type: integer
+    description: Primary key.
+    constraints:
+    - type: not_null
+    data_tests:
+    - unique
+    - not_null
+  - name: customer_id
+    data_type: integer
+    data_tests:
+    - relationships:
+        arguments:
+          to: ref('dim_customers')
+          field: customer_id
+    description: '{{ doc(''customer_id'') }}'
+  - name: ordered_at
+    data_type: timestamp
+    description: '{{ doc(''ordered_at'') }}'
+  - name: order_date
+    data_type: date
+    description: '{{ doc(''order_date'') }}'
+  - name: financial_status
+    data_type: varchar
+    description: '{{ doc(''financial_status'') }}'
+  - name: sales_channel
+    data_type: varchar
+    description: '{{ doc(''sales_channel'') }}'
+  - name: units
+    data_type: bigint
+    description: '{{ doc(''units'') }}'
+  - name: net_amount
+    data_type: double
+    description: Line revenue after discounts, before refunds.
+  - name: order_total
+    data_type: double
+    description: '{{ doc(''order_total'') }}'
+  - name: margin_amount
+    data_type: double
+    description: '{{ doc(''margin_amount'') }}'
+  - name: refund_amount
+    data_type: double
+    description: '{{ doc(''refund_amount'') }}'
+  - name: net_revenue
+    data_type: double
+    description: Net amount minus refunds. The revenue figure used in reporting.
+  - name: used_discount
+    data_type: boolean
+    description: '{{ doc(''used_discount'') }}'
+- name: fct_order_lines
+  description: Storefront order lines with margin.
+  columns:
+  - name: order_line_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''order_line_id'') }}'
+  - name: order_id
+    description: '{{ doc(''order_id'') }}'
+  - name: customer_id
+    description: '{{ doc(''customer_id'') }}'
+  - name: ordered_at
+    description: '{{ doc(''ordered_at'') }}'
+  - name: product_id
+    description: '{{ doc(''product_id'') }}'
+  - name: category
+    description: '{{ doc(''category'') }}'
+  - name: quantity
+    description: '{{ doc(''quantity'') }}'
+  - name: net_amount
+    description: '{{ doc(''net_amount'') }}'
+  - name: margin_amount
+    description: '{{ doc(''margin_amount'') }}'

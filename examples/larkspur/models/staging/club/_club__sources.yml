@@ -1,0 +1,9 @@
+sources:
+  - name: club
+    description: Trail Club membership system.
+    database: larkspur
+    schema: raw_club
+    loader: ingest-service
+    tables:
+      - name: memberships
+      - name: membership_events

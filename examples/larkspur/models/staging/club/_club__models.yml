@@ -1,0 +1,40 @@
+models:
+- name: stg_club__memberships
+  description: Trail Club memberships, one row per membership.
+  columns:
+  - name: membership_id
+    data_tests:
+    - unique
+    - not_null
+    description: '{{ doc(''membership_id'') }}'
+  - name: customer_id
+    description: '{{ doc(''customer_id'') }}'
+  - name: plan
+    data_tests:
+    - accepted_values:
+        arguments:
+          values:
+          - monthly
+          - annual
+    description: '{{ doc(''plan'') }}'
+  - name: started_at
+    description: '{{ doc(''started_at'') }}'
+  - name: cancelled_at
+    description: '{{ doc(''cancelled_at'') }}'
+  - name: price
+    description: '{{ doc(''price'') }}'
+  - name: monthly_price
+    description: '{{ doc(''monthly_price'') }}'
+- name: stg_club__membership_events
+  columns:
+  - name: membership_event_id
+    description: '{{ doc(''membership_event_id'') }}'
+    data_tests:
+    - unique
+    - not_null
+  - name: membership_id
+    description: '{{ doc(''membership_id'') }}'
+  - name: event_type
+    description: '{{ doc(''event_type'') }}'
+  - name: occurred_at
+    description: '{{ doc(''occurred_at'') }}'

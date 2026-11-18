@@ -1,0 +1,10 @@
+*.duckdb
+*.duckdb.wal
+logs/
+dbt_packages/
+target/*
+!target/manifest.json
+!target/catalog.json
+!target/run_results.json
+!target/sources.json
+.user.yml
