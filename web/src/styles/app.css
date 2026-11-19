@@ -26,19 +26,19 @@
   --warn-soft: #E9C98C;
   --fail-soft: #EDA9A9;
   --minimap-mask: rgba(244, 246, 248, 0.72);
-  --cat-1: #2F6FB7;
-  --cat-2: #2B9A80;
-  --cat-3: #7C68C2;
-  --cat-4: #C98A17;
-  --cat-5: #5E8C2F;
-  --cat-6: #C2452D;
-  --cat-7: #4F5D75;
-  --cat-8: #2A84A8;
-  --ramp-1: #D9E3F1;
-  --ramp-2: #A8C0E2;
-  --ramp-3: #6F98D2;
-  --ramp-4: #3D6DBB;
-  --ramp-5: #1F4590;
+  --cat-1: var(--ln-cat-1);
+  --cat-2: var(--ln-cat-2);
+  --cat-3: var(--ln-cat-3);
+  --cat-4: var(--ln-cat-4);
+  --cat-5: var(--ln-cat-5);
+  --cat-6: var(--ln-cat-6);
+  --cat-7: var(--ln-cat-7);
+  --cat-8: var(--ln-cat-8);
+  --ramp-1: var(--ln-ramp-1);
+  --ramp-2: var(--ln-ramp-2);
+  --ramp-3: var(--ln-ramp-3);
+  --ramp-4: var(--ln-ramp-4);
+  --ramp-5: var(--ln-ramp-5);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -49,19 +49,6 @@
     --warn-soft: #7A5E25;
     --fail-soft: #7E3535;
     --minimap-mask: rgba(14, 20, 27, 0.7);
-    --cat-1: #6FA0E8;
-    --cat-2: #4FC6A7;
-    --cat-3: #A894E8;
-    --cat-4: #EDB44C;
-    --cat-5: #93C35F;
-    --cat-6: #EE7659;
-    --cat-7: #93A3BE;
-    --cat-8: #52B4DA;
-    --ramp-1: #1D2C42;
-    --ramp-2: #24426B;
-    --ramp-3: #2F5E9A;
-    --ramp-4: #4C82CC;
-    --ramp-5: #8DB5F2;
   }
 }
 
@@ -72,19 +59,6 @@
   --warn-soft: #7A5E25;
   --fail-soft: #7E3535;
   --minimap-mask: rgba(14, 20, 27, 0.7);
-  --cat-1: #6FA0E8;
-  --cat-2: #4FC6A7;
-  --cat-3: #A894E8;
-  --cat-4: #EDB44C;
-  --cat-5: #93C35F;
-  --cat-6: #EE7659;
-  --cat-7: #93A3BE;
-  --cat-8: #52B4DA;
-  --ramp-1: #1D2C42;
-  --ramp-2: #24426B;
-  --ramp-3: #2F5E9A;
-  --ramp-4: #4C82CC;
-  --ramp-5: #8DB5F2;
 }
 
 *,
